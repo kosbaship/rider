@@ -26,3 +26,27 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
+
+  assets:
+    - assets/images/car_android.png
+    - assets/images/car_ios.png
+    - assets/images/desticon.png
+    - assets/images/desticon1.png
+    - assets/images/logo.png
+    - assets/images/logo1.png
+    - assets/images/pickicon.png
+    - assets/images/posimarker.png
+    - assets/images/redmarker.png
+    - assets/images/taxi.png
+    - assets/images/user_icon.png
+
+  fonts:
+    - family: Signatra
+      fonts:
+        - asset: assets/fonts/Signatra.ttf
+    - family: BoltSemibold
+      fonts:
+        - asset: assets/fonts/bolt-semibold.ttf
+    - family: BoltRegular
+      fonts:
+        - asset: assets/fonts/bolt-regular.ttf

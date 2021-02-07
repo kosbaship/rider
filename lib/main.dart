@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rider/screens/layout/home.dart';
 
+import 'components/colors.dart';
+import 'components/theme.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -12,11 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Uber Rider',
-      theme: ThemeData(
-        fontFamily: 'Signatra',
-        primarySwatch: Colors.indigo,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      theme: theme(),
       home: HomePage(),
     );
   }

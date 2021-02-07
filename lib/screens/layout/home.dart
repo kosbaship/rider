@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:rider/components/colors.dart';
 import 'package:rider/components/component.dart';
 
 class HomePage extends StatelessWidget {
@@ -8,7 +11,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: kForthColor,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 8),
@@ -19,15 +22,15 @@ class HomePage extends StatelessWidget {
               ),
               Center(
                 child: Image(
-                  image: AssetImage('assets/images/logo.png'),
+                  image: AssetImage('assets/images/logo1.png'),
                   width: 390.0,
                   height: 250.0,
                   alignment: Alignment.center,
                 ),
               ),
               Text(
-                'Login in as Rider',
-                style: TextStyle(fontSize: 24.0, fontFamily: 'BoltSemiBold'),
+                'Login as Rider',
+                style: TextStyle(fontSize: 24.0, fontFamily: "Muli", fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               Padding(
@@ -37,11 +40,19 @@ class HomePage extends StatelessWidget {
                     defaultTextForm(
                         title: 'Email',
                         type: TextInputType.emailAddress,
-                        controller: emailController),
+                        controller: emailController,
+                    icon: Icons.email),
+                    SizedBox(
+                      height: 35.0,
+                    ),
                     defaultTextForm(
                         title: 'Password',
                         type: TextInputType.visiblePassword,
-                        controller: passwordController),
+                        controller: passwordController,
+                    icon: Icons.lock,
+                    obscureText: true),
+
+
                   ],
                 ),
               ),
@@ -56,17 +67,22 @@ class HomePage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'Don\'t have an account? ',
-                      style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.w100),
+                    Expanded(
+                      child: Text(
+                        'Don\'t have an account? ',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: kSecondaryColor, fontWeight: FontWeight.w100),
+                      ),
                     ),
-                    Text(
-                      ' SignUp Now',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 16),
+                    Expanded(
+                      child: Text(
+                        'SignUp Now',
+                        style: TextStyle(
+                            color: kSecondaryColor,
+                            fontWeight: FontWeight.w900,
+                            fontSize: 16),
+                      ),
                     ),
                   ],
                 ),

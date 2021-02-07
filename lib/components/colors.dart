@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 
-const kMainColor =  Color(0xffE21661);
-const kSecondaryColor = Color(0xffFFE580);
-const kThirdColor = Color(0xffE1E2A4);
+const kMainColor =  Color(0xff00818A);
+const kSecondaryColor = Color(0xff09194F);
+const kThirdColor = Color(0xffF9CE00);
+const kForthColor = Color(0xffFDFDEB);
 
 
 const kWhiteColor = Color(0xFFFFFFFF);
@@ -13,8 +14,8 @@ const kDarkColor = Color(0xFF2C2C2C);
 const kBlackColor = Color(0xFF000000);
 
 
-const MaterialColor customMaterialColor = MaterialColor(
-  0xffFFE580,
+const MaterialColor kMaterialColor = MaterialColor(
+  0xff09194F,
   <int, Color>{
     50: Color(0xFFA4A4BF),
     100: Color(0xFFA4A4BF),

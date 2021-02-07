@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:rider/components/colors.dart';
 
-Widget defaultTextForm({title, type, controller}) => TextFormField(
+Widget defaultTextForm({title, type, controller, icon,obscureText = false }) => TextFormField(
   keyboardType: type,
-  obscureText: true,
+  obscureText: obscureText,
   controller: controller,
   decoration: InputDecoration(
+    hintText: "Enter your $title",
+    floatingLabelBehavior: FloatingLabelBehavior.always,
+    suffixIcon: Icon(icon),
     labelText: title,
     labelStyle: TextStyle(
-      fontSize: 14.0,
+      fontSize: 16.0,
     ),
-    hintStyle: TextStyle(color: Colors.grey, fontSize: 10),
+    hintStyle: TextStyle(color: kGreyColor, fontSize: 10),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(28),
+      borderSide: BorderSide(color: kSecondaryColor, width: 2),
+      gapPadding: 10,
+    ),
   ),
   style: TextStyle(fontSize: 14.0),
 );

@@ -3,9 +3,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rider/models/user.dart';
-import 'package:rider/screens/login/cubit/signup_cubit.dart';
-import 'package:rider/screens/login/cubit/signup_states.dart';
 import 'package:rider/screens/login/login.dart';
+import 'package:rider/screens/signup/cubit/signup_cubit.dart';
+import 'package:rider/screens/signup/cubit/signup_states.dart';
 import 'package:rider/shared/colors.dart';
 import 'package:rider/shared/component.dart';
 
@@ -216,6 +216,5 @@ void _checkValidationAndSignUP({
         userPassword: password
       )
     );
-
   }
 }

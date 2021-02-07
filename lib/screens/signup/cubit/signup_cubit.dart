@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rider/models/user.dart';
 import 'package:rider/network/firebase_auth.dart';
 import 'package:rider/network/realtime_database.dart';
-import 'package:rider/screens/login/cubit/signup_states.dart';
+import 'package:rider/screens/signup/cubit/signup_states.dart';
 
 class SignUpCubit extends Cubit<SignUpStates> {
   SignUpCubit() : super(SignUpInitialState());

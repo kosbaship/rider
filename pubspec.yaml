@@ -44,7 +44,7 @@ flutter:
     - family: Signatra
       fonts:
         - asset: assets/fonts/Signatra.ttf
-    - family: BoltSemibold
+    - family: BoltSemiBold
       fonts:
         - asset: assets/fonts/bolt-semibold.ttf
     - family: BoltRegular

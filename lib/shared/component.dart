@@ -94,30 +94,38 @@ showToast({@required String message, @required bool error}) =>
 void buildProgressDialog({context, text, error = false}) => showDialog(
   context: context,
   builder: (context) => AlertDialog(
-    content: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Row(
+    contentPadding: EdgeInsets.all(8),
+    backgroundColor: kMainColor,
+    content: Container(
+      color: kForthColor,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            if (!error) CircularProgressIndicator(),
-            if (!error)
-              SizedBox(
-                width: 20.0,
-              ),
-            Expanded(
-              child: Text(
-                text,
-              ),
+            Row(
+              children: [
+                if (!error) CircularProgressIndicator(backgroundColor: kForthColor    ,),
+                if (!error)
+                  SizedBox(
+                    width: 20.0,
+                  ),
+                Expanded(
+                  child: Text(
+                    text,
+                  ),
+                ),
+              ],
             ),
+            if (error) SizedBox(height: 20.0),
+            if (error)
+              buildButton(
+                onPressed: () => Navigator.pop(context),
+                title: "Cancel",
+              ),
           ],
         ),
-        if (error) SizedBox(height: 20.0),
-        if (error)
-          buildButton(
-            onPressed: () => Navigator.pop(context),
-            title: "Cancel",
-          ),
-      ],
+      ),
     ),
   ),
 );

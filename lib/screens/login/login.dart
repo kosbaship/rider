@@ -3,9 +3,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:rider/components/colors.dart';
 import 'package:rider/components/component.dart';
-import 'package:rider/screens/login/login.dart';
+import 'package:rider/screens/signup/signup.dart';
 
-class SignUpPage extends StatelessWidget {
+class LoginPage extends StatelessWidget {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
@@ -28,43 +28,29 @@ class SignUpPage extends StatelessWidget {
                   tag: 'inOutHeroTag',
                   child: Image(
                     image: AssetImage('assets/images/logo1.png'),
-                    width: 280.0,
-                    height: 140.0,
+                    width: 390.0,
+                    height: 250.0,
                     alignment: Alignment.center,
                   ),
                 ),
               ),
               Text(
-                'Sign-Up as Rider',
+                'Login as Rider',
                 style: TextStyle(fontSize: 20.0, fontFamily: "Muli", fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
+              SizedBox(
+                height: 35.0,
+              ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                padding: EdgeInsets.symmetric( horizontal: 20),
                 child: Column(
                   children: [
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    buildTextField(
-                        title: 'Name',
-                        controller: nameController,
-                        icon: Icons.person,),
-                    SizedBox(
-                      height: 20.0,
-                    ),
                     buildTextField(
                         title: 'Email',
                         keyboardType: TextInputType.emailAddress,
                         controller: emailController,
                         icon: Icons.email),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    buildTextField(
-                      title: 'Phone',
-                      controller: phoneController,
-                      icon: Icons.phone_android,),
                     SizedBox(
                       height: 20.0,
                     ),
@@ -78,25 +64,25 @@ class SignUpPage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 20.0,
+                height: 35.0,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
-                child: buildButton(title: 'Sign Up', onPressed: () {}),
+                child: buildButton(title: 'Login', onPressed: () {}),
               ),
               SizedBox(
-                height: 10.0,
+                height: 18.0,
               ),
               FlatButton(
                 onPressed: () {
-                  navigateToReplaceMe(context, LoginPage());
+                  navigateToReplaceMe(context, SignUpPage());
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(
                       child: Text(
-                        'Already have an account',
+                        'Don\'t have an account? ',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: kSecondaryColor, fontWeight: FontWeight.w100),
@@ -104,7 +90,7 @@ class SignUpPage extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        'Login Now',
+                        'Sign-Up Now',
                         style: TextStyle(
                             color: kSecondaryColor,
                             fontWeight: FontWeight.w900,
@@ -113,9 +99,6 @@ class SignUpPage extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-              SizedBox(
-                height: 20.0,
               ),
             ],
           ),

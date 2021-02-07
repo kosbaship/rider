@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rider/components/colors.dart';
-
+import 'package:rider/network/firebase_auth.dart';
+import 'package:rider/network/firebase_storage.dart';
+import 'package:rider/network/realtime_database.dart';
+void initApp() {
+  FirebaseAuthService();
+  FirebaseRealTimeDatabaseService();
+  FirebaseStorageService();
+}
 Widget buildTextField({
   @required String title,
   @required TextEditingController controller,
@@ -72,3 +80,12 @@ void navigateAndFinish(context, widget) => Navigator.pushAndRemoveUntil(
       builder: (context) => widget,
     ),
         (Route<dynamic> route) => false);
+showToast({@required String message, @required bool error}) =>
+    Fluttertoast.showToast(
+        msg: " $message ",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: error ? kSecondaryColor : kMainColor,
+        textColor: kForthColor,
+        fontSize: 16.0);

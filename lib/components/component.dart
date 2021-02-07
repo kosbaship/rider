@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:rider/components/colors.dart';
 
-Widget defaultTextForm({title, type, controller, icon,obscureText = false }) => TextFormField(
-  keyboardType: type,
+Widget defaultTextForm({
+  @required String title,
+  @required TextEditingController controller,
+  @required IconData icon,
+  TextInputType keyboardType = TextInputType.text,
+  bool obscureText = false
+}) => TextFormField(
+  keyboardType: keyboardType,
   obscureText: obscureText,
   controller: controller,
   decoration: InputDecoration(

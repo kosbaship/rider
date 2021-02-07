@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
                   children: [
                     defaultTextForm(
                         title: 'Email',
-                        type: TextInputType.emailAddress,
+                        keyboardType: TextInputType.emailAddress,
                         controller: emailController,
                     icon: Icons.email),
                     SizedBox(
@@ -47,7 +47,7 @@ class HomePage extends StatelessWidget {
                     ),
                     defaultTextForm(
                         title: 'Password',
-                        type: TextInputType.visiblePassword,
+                        keyboardType: TextInputType.visiblePassword,
                         controller: passwordController,
                     icon: Icons.lock,
                     obscureText: true),

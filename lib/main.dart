@@ -1,10 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:rider/screens/layout/home.dart';
 import 'package:rider/screens/login/login.dart';
+import 'package:rider/shared/component.dart';
+import 'package:rider/shared/theme.dart';
 
-import 'components/component.dart';
-import 'components/theme.dart';
 
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();

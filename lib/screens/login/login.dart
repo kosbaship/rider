@@ -1,9 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:rider/components/colors.dart';
-import 'package:rider/components/component.dart';
 import 'package:rider/screens/signup/signup.dart';
+import 'package:rider/shared/colors.dart';
+import 'package:rider/shared/component.dart';
 
 class LoginPage extends StatelessWidget {
   final nameController = TextEditingController();
@@ -11,8 +11,17 @@ class LoginPage extends StatelessWidget {
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
 
+  final String email;
+  final String password;
+
+  LoginPage({this.email, this.password});
+
   @override
   Widget build(BuildContext context) {
+    if (email != null && password != null) {
+      emailController.text = email;
+      passwordController.text = password;
+    }
     return Scaffold(
       backgroundColor: kForthColor,
       body: SingleChildScrollView(

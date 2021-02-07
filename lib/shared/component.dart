@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:rider/components/colors.dart';
 import 'package:rider/network/firebase_auth.dart';
 import 'package:rider/network/firebase_storage.dart';
 import 'package:rider/network/realtime_database.dart';
+
+import 'colors.dart';
 void initApp() {
   FirebaseAuthService();
   FirebaseRealTimeDatabaseService();
@@ -89,3 +90,34 @@ showToast({@required String message, @required bool error}) =>
         backgroundColor: error ? kSecondaryColor : kMainColor,
         textColor: kForthColor,
         fontSize: 16.0);
+
+void buildProgressDialog({context, text, error = false}) => showDialog(
+  context: context,
+  builder: (context) => AlertDialog(
+    content: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          children: [
+            if (!error) CircularProgressIndicator(),
+            if (!error)
+              SizedBox(
+                width: 20.0,
+              ),
+            Expanded(
+              child: Text(
+                text,
+              ),
+            ),
+          ],
+        ),
+        if (error) SizedBox(height: 20.0),
+        if (error)
+          buildButton(
+            onPressed: () => Navigator.pop(context),
+            title: "Cancel",
+          ),
+      ],
+    ),
+  ),
+);

@@ -1,9 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:rider/components/colors.dart';
-import 'package:rider/components/component.dart';
-import 'package:rider/screens/signup/signup.dart';
+import 'package:rider/shared/colors.dart';
 
 class HomePage extends StatelessWidget {
   final emailController = TextEditingController();

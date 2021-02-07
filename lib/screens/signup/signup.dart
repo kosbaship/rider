@@ -3,10 +3,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:rider/components/colors.dart';
 import 'package:rider/components/component.dart';
-import 'package:rider/screens/signup/signup.dart';
+import 'package:rider/screens/layout/home.dart';
 
-class HomePage extends StatelessWidget {
+class SignUpPage extends StatelessWidget {
+  final nameController = TextEditingController();
   final emailController = TextEditingController();
+  final phoneController = TextEditingController();
   final passwordController = TextEditingController();
 
   @override
@@ -30,22 +32,36 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               Text(
-                'Login as Rider',
+                'Sign-Up as Rider',
                 style: TextStyle(fontSize: 20.0, fontFamily: "Muli", fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(
-                height: 35.0,
-              ),
               Padding(
-                padding: EdgeInsets.symmetric( horizontal: 20),
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: Column(
                   children: [
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    buildTextField(
+                        title: 'Name',
+                        controller: nameController,
+                        icon: Icons.person,),
+                    SizedBox(
+                      height: 20.0,
+                    ),
                     buildTextField(
                         title: 'Email',
                         keyboardType: TextInputType.emailAddress,
                         controller: emailController,
-                    icon: Icons.email),
+                        icon: Icons.email),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    buildTextField(
+                      title: 'Phone',
+                      controller: phoneController,
+                      icon: Icons.phone_android,),
                     SizedBox(
                       height: 20.0,
                     ),
@@ -53,31 +69,31 @@ class HomePage extends StatelessWidget {
                         title: 'Password',
                         keyboardType: TextInputType.visiblePassword,
                         controller: passwordController,
-                    icon: Icons.lock,
-                    obscureText: true),
+                        icon: Icons.lock,
+                        obscureText: true),
                   ],
                 ),
               ),
               SizedBox(
-                height: 35.0,
+                height: 20.0,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
-                child: buildButton(title: 'Login', onPressed: () {}),
+                child: buildButton(title: 'Sign Up', onPressed: () {}),
               ),
               SizedBox(
-                height: 18.0,
+                height: 10.0,
               ),
               FlatButton(
                 onPressed: () {
-                  navigateToReplaceMe(context, SignUpPage());
+                  navigateToReplaceMe(context, HomePage());
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(
                       child: Text(
-                        'Don\'t have an account? ',
+                        'Already have an account',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: kSecondaryColor, fontWeight: FontWeight.w100),
@@ -85,7 +101,7 @@ class HomePage extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        'Sign-Up Now',
+                        'Login Now',
                         style: TextStyle(
                             color: kSecondaryColor,
                             fontWeight: FontWeight.w900,
@@ -94,6 +110,9 @@ class HomePage extends StatelessWidget {
                     ),
                   ],
                 ),
+              ),
+              SizedBox(
+                height: 20.0,
               ),
             ],
           ),

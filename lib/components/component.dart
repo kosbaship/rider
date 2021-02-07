@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rider/components/colors.dart';
 
-Widget defaultTextForm({
+Widget buildTextField({
   @required String title,
   @required TextEditingController controller,
   @required IconData icon,
@@ -26,10 +26,10 @@ Widget defaultTextForm({
       gapPadding: 10,
     ),
   ),
-  style: TextStyle(fontSize: 14.0),
+  style: TextStyle(fontSize: 14.0, color: kSecondaryColor),
 );
 
-Widget defaultButton({
+Widget buildButton({
   title,
   onPressed,
 }) =>
@@ -53,3 +53,22 @@ Widget defaultButton({
         borderRadius: BorderRadius.circular(24),
       ),
     );
+
+void navigateTo(context, widget) => Navigator.push(
+  context,
+  MaterialPageRoute(
+    builder: (context) => widget,
+  ),
+);
+void navigateToReplaceMe(context, widget) => Navigator.pushReplacement(
+  context,
+  MaterialPageRoute(
+    builder: (context) => widget,
+  ),
+);
+void navigateAndFinish(context, widget) => Navigator.pushAndRemoveUntil(
+    context,
+    MaterialPageRoute(
+      builder: (context) => widget,
+    ),
+        (Route<dynamic> route) => false);

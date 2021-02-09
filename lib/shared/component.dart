@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rider/network/firebase_auth.dart';
 import 'package:rider/network/firebase_storage.dart';
 import 'package:rider/network/realtime_database.dart';
+import 'package:rider/services/location.dart';
 
 import 'colors.dart';
 void initApp() {

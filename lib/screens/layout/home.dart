@@ -1,41 +1,31 @@
-import 'dart:ui';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rider/shared/colors.dart';
 
 class HomePage extends StatelessWidget {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+
+  Completer<GoogleMapController> _googleMapController = Completer();
+  GoogleMapController newGoogleMapController;
+
+  static final CameraPosition _kGooglePlex = CameraPosition(
+    target: LatLng(37.42796133580664, -122.085749655962),
+    zoom: 14.4746,
+  );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kForthColor,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 35.0,
-              ),
-              Center(
-                child: Image(
-                  image: AssetImage('assets/images/logo.png'),
-                  width: 390.0,
-                  height: 250.0,
-                  alignment: Alignment.center,
-                ),
-              ),
-              Text(
-                'Rider Layout',
-                style: TextStyle(fontSize: 20.0, fontFamily: "Muli", fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
-
-            ],
-          ),
-        ),
+      body: GoogleMap(
+        mapType: MapType.normal,
+        myLocationButtonEnabled: true,
+        initialCameraPosition: _kGooglePlex,
+        onMapCreated: (GoogleMapController controller){
+          _googleMapController.complete(controller);
+          newGoogleMapController = controller;
+        },
       ),
     );
   }

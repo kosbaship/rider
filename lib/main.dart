@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:rider/screens/layout/home.dart';
 import 'package:rider/screens/login/login.dart';
 import 'package:rider/shared/component.dart';
 import 'package:rider/shared/theme.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Uber Rider',
       theme: theme(),
-      home: LoginPage(),
+      home: HomePage(),
     );
   }
 }

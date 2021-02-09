@@ -129,3 +129,7 @@ void buildProgressDialog({context, text, error = false}) => showDialog(
     ),
   ),
 );
+Widget drawDivider() => Divider(height: 1.0,
+  color: kMainColor,
+  thickness: 1.0,
+);

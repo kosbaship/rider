@@ -2,34 +2,24 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rider/network/api_provider.dart';
 import 'package:rider/services/location.dart';
 import 'package:rider/shared/colors.dart';
 import 'package:rider/shared/component.dart';
+import 'package:rider/shared/config_map.dart';
 
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  Completer<GoogleMapController> _googleMapController = Completer();
-  GoogleMapController newGoogleMapController;
+class _HomePageState extends State<HomePage>  {
   double uiLatitude;
   double uiLongitude;
   double bottomPaddingOfTheMap = 340.0;
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
-
-  @override
-  void initState() {
-    LocationService.getCurrentLocationPosition().then((value) {
-      uiLatitude = LocationService.latitude;
-      uiLongitude = LocationService.longitude;
-    });
-    super.initState();
-  }
+  GoogleMapController newGoogleMapController;
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  Completer<GoogleMapController> _googleMapController = Completer();
 
   // move or animate the camera on google map
   moveCamera(){
@@ -44,8 +34,23 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  void initState() {
+    LocationService.getCurrentLocationPosition().then((value) {
+      uiLatitude = LocationService.latitude;
+      uiLongitude = LocationService.longitude;
+    });
+    super.initState();
+  }
+
+  static final CameraPosition _kGooglePlex = CameraPosition(
+    target: LatLng(37.42796133580664, -122.085749655962),
+    zoom: 14.4746,
+  );
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       backgroundColor: kForthColor,
       drawer: Drawer(
         child: Container(
@@ -80,7 +85,14 @@ class _HomePageState extends State<HomePage> {
                 leading: Icon(Icons.history, color: kMainColor,),
                 title: Text('History'),
                 onTap: () {
-
+                  ApiProvider.getAPIProviderInstance.fetchData(
+                    lat: uiLatitude,
+                    long: uiLongitude,
+                    mapKey: kMapKeyForIOS,
+                  ).then((value) {
+                    print('======================== Hello From init State');
+                    print(value.data['results'][0]['formatted_address']);
+                  });
                 },
               ),
               drawDivider(),
@@ -88,8 +100,8 @@ class _HomePageState extends State<HomePage> {
                 leading: Icon(Icons.person, color: kMainColor,),
                 title: Text('Visit Profile'),
                 onTap: () {
-                  print('= = = = = = = = = => ${LocationService.latitude}');
-                  print('= = = = = = = = = => ${LocationService.longitude}');
+                  print('= = = = = = = = = => $uiLatitude');
+                  print('= = = = = = = = = => $uiLatitude');
                 },
               ),
               drawDivider(),
@@ -141,7 +153,7 @@ class _HomePageState extends State<HomePage> {
               top: 22.0,
               child: GestureDetector(
                 onTap: (){
-
+                  scaffoldKey.currentState.openDrawer();
                 },
                 child: Container(
                   decoration: BoxDecoration(

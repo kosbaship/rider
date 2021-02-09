@@ -17,30 +17,28 @@ class _HomePageState extends State<HomePage> {
   double uiLatitude;
   double uiLongitude;
   double bottomPaddingOfTheMap = 340.0;
-
-  @override
-  void initState() {
-    print('= = = = = = = = = => Wait');
-    LocationService.getCurrentLocationPosition().then((value) {
-      uiLatitude = LocationService.latitude;
-      uiLongitude = LocationService.longitude;
-      print('= = = = = = = = = => ${LocationService.latitude}');
-      print('= = = = = = = = = => ${LocationService.longitude}');
-      print('= = = = = = = = = => Request Finished');
-    });
-    super.initState();
-  }
   static final CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
     zoom: 14.4746,
   );
 
+  @override
+  void initState() {
+    LocationService.getCurrentLocationPosition().then((value) {
+      uiLatitude = LocationService.latitude;
+      uiLongitude = LocationService.longitude;
+    });
+    super.initState();
+  }
+
   // move or animate the camera on google map
   moveCamera(){
+    // first i get the new CameraPosition
     CameraPosition newCameraPosition = CameraPosition(
       target: LatLng(uiLatitude, -uiLongitude),
       zoom: 14,
     );
+    // second animate and update the camera via newGoogleMapController
     newGoogleMapController
         .animateCamera(CameraUpdate.newCameraPosition(newCameraPosition));
   }
@@ -140,7 +138,7 @@ class _HomePageState extends State<HomePage> {
             // Hamburger button for drawer
             Positioned(
               left: 22.0,
-              top: 45.0,
+              top: 22.0,
               child: GestureDetector(
                 onTap: (){
 

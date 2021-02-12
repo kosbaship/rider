@@ -4,6 +4,7 @@ import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rider/models/address.dart';
 import 'package:rider/network/api_provider.dart';
 import 'package:rider/screens/layout/cubit/home_cubit.dart';
 import 'package:rider/screens/layout/cubit/home_states.dart';
@@ -28,8 +29,7 @@ class HomePage extends StatelessWidget  {
         listener: (context, state){},
         builder: (context, state) {
           GoogleMapController newGoogleMapController;
-          double uiLatitude = HomeCubit.get(context).cubitLatitude;
-          double uiLongitude = HomeCubit.get(context).cubitLongitude;
+          Address currentUserCoordinates = HomeCubit.get(context).userCoordinates;
 
 
           return ConditionalBuilder(
@@ -70,14 +70,6 @@ class HomePage extends StatelessWidget  {
                       leading: Icon(Icons.history, color: kMainColor,),
                       title: Text('History'),
                       onTap: () {
-                        ApiProvider.getAPIProviderInstance.fetchData(
-                          lat: uiLatitude,
-                          long: uiLongitude,
-                          mapKey: kMapKeyForIOS,
-                        ).then((value) {
-                          print('======================== Hello From init State');
-                          print(value.data['results'][0]['formatted_address']);
-                        });
                       },
                     ),
                     drawDivider(),
@@ -85,8 +77,6 @@ class HomePage extends StatelessWidget  {
                       leading: Icon(Icons.person, color: kMainColor,),
                       title: Text('Visit Profile'),
                       onTap: () {
-                        print('= = = = = = = = = => $uiLatitude');
-                        print('= = = = = = = = = => $uiLatitude');
                       },
                     ),
                     drawDivider(),
@@ -129,7 +119,11 @@ class HomePage extends StatelessWidget  {
                           onMapCreated: (GoogleMapController controller) {
                             _googleMapController.complete(controller);
                             newGoogleMapController = controller;
-                            _moveCamera(newGoogleMapController,uiLatitude, uiLongitude);
+                            _moveCamera(
+                                newGoogleMapController,
+                                currentUserCoordinates.placeLatitude,
+                                currentUserCoordinates.placeLongitude
+                            );
                           },
                         ),
                         // Hamburger button for drawer

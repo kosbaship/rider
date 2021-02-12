@@ -1,5 +1,6 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rider/services/location.dart';
 
 import 'home_states.dart';
 
@@ -8,19 +9,19 @@ class HomeCubit extends Cubit<HomeStates> {
 
   static HomeCubit get(context) => BlocProvider.of(context);
 
-  signUp() {
-   // emit(HomeLoadingState());
+  double cubitLatitude;
+  double cubitLongitude;
 
-    // FirebaseAuthService.signInEP(
-    //     email: user.userEmail, password: user.userPassword)
-    //     .then((userCredential) {
-    //   print('= = = = = = = > ${userCredential.user.uid}');
-    //   print('= = = = = = = > ${userCredential.user.email}');
-    //
-    //   print('= = = = = = = > User Logged-In Successfully');
-    //   emit(HomeSuccessState());
-    // }).catchError((e) {
-    //   emit(HomeErrorState(e.toString()));
-    // });
+  getCurrentLocation() {
+   emit(HomeLoadingState());
+
+   LocationService.getCurrentLocationPosition().then((value) {
+     cubitLatitude = LocationService.latitude;
+     cubitLongitude = LocationService.longitude;
+
+      emit(HomeSuccessState());
+    }).catchError((e) {
+      emit(HomeErrorState(e.toString()));
+    });
   }
 }

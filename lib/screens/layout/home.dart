@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget  {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final Completer<GoogleMapController> _googleMapController = Completer();
   final CameraPosition _kInitialCameraPosition = CameraPosition(
-    target: LatLng(31.037933, 31.381523),
+    target: LatLng(31.043567, 31.3770272),
     zoom: 14.5,
   );
 
@@ -113,190 +113,191 @@ class HomePage extends StatelessWidget  {
               ),
             ),
             body: SafeArea(
-              child: Stack(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // Hamburger button for drawer
-                  Positioned(
-                    left: 22.0,
-                    top: 22.0,
-                    child: GestureDetector(
-                      onTap: (){
-                        scaffoldKey.currentState.openDrawer();
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: kMainColor,
-                            borderRadius: BorderRadius.circular(22.0),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: kForthColor,
-                                  blurRadius: 3.0,
-                                  offset: Offset(0.1, 0.1),
-                                  spreadRadius: 0.1)
-                            ]),
-                        child: CircleAvatar(
-                          backgroundColor: kMainColor,
-                          child: Icon(Icons.menu, color: kForthColor,),
-                          radius: 20.0,
+                  Expanded(
+                    child: Stack(
+                      children: [
+                        GoogleMap(
+                          mapType: MapType.normal,
+                          myLocationButtonEnabled: true,
+                          myLocationEnabled: true,
+                          zoomGesturesEnabled: true,
+                          zoomControlsEnabled: true,
+                          initialCameraPosition: _kInitialCameraPosition,
+                          onMapCreated: (GoogleMapController controller) {
+                            _googleMapController.complete(controller);
+                            newGoogleMapController = controller;
+                            _moveCamera(newGoogleMapController,uiLatitude, uiLongitude);
+                          },
                         ),
-                      ),
-                    ),
-                  ),
-                  GoogleMap(
-                    padding: EdgeInsets.only(bottom: 340),
-                    mapType: MapType.normal,
-                    myLocationButtonEnabled: true,
-                    myLocationEnabled: true,
-                    zoomGesturesEnabled: true,
-                    zoomControlsEnabled: true,
-                    initialCameraPosition: _kInitialCameraPosition,
-                    onMapCreated: (GoogleMapController controller) {
-                      _googleMapController.complete(controller);
-                      newGoogleMapController = controller;
-                      _moveCamera(newGoogleMapController,uiLatitude, uiLongitude);
-                    },
-                  ),
-                  Positioned(
-                    left: 0.0,
-                    right: 0.0,
-                    bottom: 0.0,
-                    child: Container(
-                      height: 340,
-                      decoration: BoxDecoration(
-                          color: kForthColor,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(25.0),
-                            topRight: Radius.circular(25.0),
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                                color: kMainColor,
-                                blurRadius: 3.0,
-                                offset: Offset(0.7, 0.7),
-                                spreadRadius: 0.3)
-                          ]),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 24.0, vertical: 18.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 8.0,
-                            ),
-                            Text(
-                              'Hello There,',
-                              style: TextStyle(fontSize: 12),
-                            ),
-                            Text(
-                              'Where To?',
-                              style:
-                                  TextStyle(fontSize: 20, fontFamily: 'BoltSemiBold'),
-                            ),
-                            SizedBox(
-                              height: 20.0,
-                            ),
-                            Container(
+                        // Hamburger button for drawer
+                        Positioned(
+                          left: 22.0,
+                          top: 22.0,
+                          child: GestureDetector(
+                            onTap: (){
+                              scaffoldKey.currentState.openDrawer();
+                            },
+                            child: Container(
                               decoration: BoxDecoration(
-                                  color: kForthColor,
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  color: kMainColor,
+                                  borderRadius: BorderRadius.circular(22.0),
                                   boxShadow: [
                                     BoxShadow(
-                                        color: kMainColor,
-                                        blurRadius: 1.0,
+                                        color: kForthColor,
+                                        blurRadius: 3.0,
                                         offset: Offset(0.1, 0.1),
-                                        spreadRadius: 1.0)
+                                        spreadRadius: 0.1)
                                   ]),
-                              padding: const EdgeInsets.all(12.0),
-                              child: Row(
+                              child: CircleAvatar(
+                                backgroundColor: kMainColor,
+                                child: Icon(Icons.menu, color: kForthColor,),
+                                radius: 20.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 340,
+                    decoration: BoxDecoration(
+                        color: kForthColor,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(25.0),
+                          topRight: Radius.circular(25.0),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                              color: kMainColor,
+                              blurRadius: 3.0,
+                              offset: Offset(0.7, 0.7),
+                              spreadRadius: 0.3)
+                        ]),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24.0, vertical: 18.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 8.0,
+                          ),
+                          Text(
+                            'Hello There,',
+                            style: TextStyle(fontSize: 12),
+                          ),
+                          Text(
+                            'Where To?',
+                            style:
+                            TextStyle(fontSize: 20, fontFamily: 'BoltSemiBold'),
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: kForthColor,
+                                borderRadius: BorderRadius.circular(5.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: kMainColor,
+                                      blurRadius: 1.0,
+                                      offset: Offset(0.1, 0.1),
+                                      spreadRadius: 1.0)
+                                ]),
+                            padding: const EdgeInsets.all(12.0),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.search,
+                                  color: kMainColor,
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                Text(
+                                  'Search Drop Off',
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 24.0,
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.home,
+                                color: kMainColor,
+                                size: 35,
+                              ),
+                              SizedBox(
+                                width: 12.0,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Icon(
-                                    Icons.search,
-                                    color: kMainColor,
+                                  Text(
+                                    'Add Home',
                                   ),
                                   SizedBox(
-                                    width: 10.0,
+                                    height: 4.0,
                                   ),
                                   Text(
-                                    'Search Drop Off',
+                                    'Your Living Address',
+                                    style: TextStyle(
+                                        color: kMainColor,
+                                        fontSize: 12.0,
+                                        fontFamily: 'Muli',
+                                        fontWeight: FontWeight.w300),
                                   ),
                                 ],
                               ),
-                            ),
-                            SizedBox(
-                              height: 24.0,
-                            ),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.home,
-                                  color: kMainColor,
-                                  size: 35,
-                                ),
-                                SizedBox(
-                                  width: 12.0,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Add Home',
-                                    ),
-                                    SizedBox(
-                                      height: 4.0,
-                                    ),
-                                    Text(
-                                      'Your Living Address',
-                                      style: TextStyle(
-                                          color: kMainColor,
-                                          fontSize: 12.0,
-                                          fontFamily: 'Muli',
-                                          fontWeight: FontWeight.w300),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            drawDivider(),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.work,
-                                  color: kMainColor,
-                                  size: 35,
-                                ),
-                                SizedBox(
-                                  width: 12.0,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Add Work',
-                                    ),
-                                    SizedBox(
-                                      height: 4.0,
-                                    ),
-                                    Text(
-                                      'Your Office Address',
-                                      style: TextStyle(
-                                          color: kMainColor,
-                                          fontSize: 12.0,
-                                          fontFamily: 'Muli',
-                                          fontWeight: FontWeight.w300),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          drawDivider(),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.work,
+                                color: kMainColor,
+                                size: 35,
+                              ),
+                              SizedBox(
+                                width: 12.0,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Add Work',
+                                  ),
+                                  SizedBox(
+                                    height: 4.0,
+                                  ),
+                                  Text(
+                                    'Your Office Address',
+                                    style: TextStyle(
+                                        color: kMainColor,
+                                        fontSize: 12.0,
+                                        fontFamily: 'Muli',
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),

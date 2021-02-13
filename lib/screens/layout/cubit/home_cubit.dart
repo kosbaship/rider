@@ -12,24 +12,21 @@ class HomeCubit extends Cubit<HomeStates> {
 
   static HomeCubit get(context) => BlocProvider.of(context);
 
-
-
   Address userCoordinates = Address();
   Address userPickUpAddress = Address();
   
   getCurrentLocation() {
    emit(HomeLoadingState());
 
-   LocationService.getCurrentLocationPosition().then((value) {
+   LocationService.getCurrentLocationPosition().then((value) async{
      userCoordinates = Address(
        placeLatitude: LocationService.latitude,
        placeLongitude: LocationService.longitude,
      );
-     
-     
-     saveCurrentLocation();
 
-      emit(HomeSuccessState());
+     await saveCurrentLocation();
+     emit(HomeSuccessState());
+
     }).catchError((e) {
       emit(HomeErrorState(e.toString()));
     });
@@ -42,17 +39,25 @@ class HomeCubit extends Cubit<HomeStates> {
       mapKey: kMapKeyForIOS,
     ).then((value) {
 
+      String customPlaceName, stNumber, cityName, governanceName, capitalName ;
+      stNumber = value.data['results'][0]['address_components'][0]['long_name'];
+      cityName = value.data['results'][0]['address_components'][1]['long_name'];
+      governanceName = value.data['results'][0]['address_components'][2]['long_name'];
+      customPlaceName = '$stNumber, $cityName, $governanceName';
+
       userPickUpAddress = Address(
         placeLatitude: userCoordinates.placeLatitude,
         placeLongitude: userCoordinates.placeLongitude,
-        placeName: value.data['results'][0]['formatted_address'],
+        placeName: customPlaceName,
       );
-      
+
       print('\n================================================');
+      print(userPickUpAddress.placeName);
       print(userPickUpAddress.placeLatitude);
       print(userPickUpAddress.placeLongitude);
-      print(userPickUpAddress.placeName);
       print('================================================\n');
+      emit(HomeSuccessState());
+
     });
   }
 }

@@ -29,12 +29,15 @@ class HomePage extends StatelessWidget  {
         listener: (context, state){},
         builder: (context, state) {
           GoogleMapController newGoogleMapController;
-          Address currentUserCoordinates = HomeCubit.get(context).userCoordinates;
 
 
           return ConditionalBuilder(
           condition: state is! HomeLoadingState,
-          builder: (context) => Scaffold(
+          builder: (context) {
+            Address currentUserCoordinates = HomeCubit.get(context).userCoordinates;
+            Address userPickUpAddress = HomeCubit.get(context).userPickUpAddress;
+
+            return Scaffold(
             key: scaffoldKey,
             backgroundColor: kForthColor,
             drawer: Drawer(
@@ -232,24 +235,31 @@ class HomePage extends StatelessWidget  {
                               SizedBox(
                                 width: 12.0,
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Add Home',
-                                  ),
-                                  SizedBox(
-                                    height: 4.0,
-                                  ),
-                                  Text(
-                                    'Your Living Address',
-                                    style: TextStyle(
-                                        color: kMainColor,
-                                        fontSize: 12.0,
-                                        fontFamily: 'Muli',
-                                        fontWeight: FontWeight.w300),
-                                  ),
-                                ],
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      userPickUpAddress.placeName != null ?'${userPickUpAddress.placeName}' : 'Add Home',
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontSize: 13.0,
+                                          fontFamily: 'Muli',),
+                                    ),
+                                    SizedBox(
+                                      height: 6.0,
+                                    ),
+                                    Text(
+                                      'Your Living Address',
+                                      style: TextStyle(
+                                          color: kMainColor,
+                                          fontSize: 10.0,
+                                          fontFamily: 'Muli',
+                                          fontWeight: FontWeight.w300),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
@@ -275,15 +285,20 @@ class HomePage extends StatelessWidget  {
                                 children: [
                                   Text(
                                     'Add Work',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: 13.0,
+                                      fontFamily: 'Muli',),
                                   ),
                                   SizedBox(
-                                    height: 4.0,
+                                    height: 6.0,
                                   ),
                                   Text(
                                     'Your Office Address',
                                     style: TextStyle(
                                         color: kMainColor,
-                                        fontSize: 12.0,
+                                        fontSize: 10.0,
                                         fontFamily: 'Muli',
                                         fontWeight: FontWeight.w300),
                                   ),
@@ -298,7 +313,8 @@ class HomePage extends StatelessWidget  {
                 ],
               ),
             ),
-          ),
+          );
+          },
         );
         },
       ),

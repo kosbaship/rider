@@ -56,7 +56,11 @@ class SearchScreen extends StatelessWidget {
                           SizedBox(height: 20.0,),
                           buildTextField(title: 'Where To Go ?',
                               controller: destinationAddressController,
-                              icon: Icons.location_on),
+                              icon: Icons.location_on,
+                            onChange: (userInput){
+                              SearchCubit.get(context).findPlace(placeName: userInput);
+                            }
+                          ),
                           SizedBox(height: 20.0,),
                           Center(child: Text(
                             'Where To Go?',

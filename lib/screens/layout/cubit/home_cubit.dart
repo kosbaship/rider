@@ -37,12 +37,12 @@ class HomeCubit extends Cubit<HomeStates> {
 
     ApiProvider.getAPIProviderInstance.fetchData(
       path: 'geocode/json?latlng=${userCoordinates.placeLatitude},${userCoordinates.placeLongitude}&key=$kMapKeyForIOS',
-    ).then((value) {
+    ).then((response) {
 
       String customPlaceName, stNumber, cityName, governanceName ;
-      stNumber = value.data['results'][0]['address_components'][0]['long_name'];
-      cityName = value.data['results'][0]['address_components'][1]['long_name'];
-      governanceName = value.data['results'][0]['address_components'][2]['long_name'];
+      stNumber = response.data['results'][0]['address_components'][0]['long_name'];
+      cityName = response.data['results'][0]['address_components'][1]['long_name'];
+      governanceName = response.data['results'][0]['address_components'][2]['long_name'];
       customPlaceName = '$stNumber, $cityName, $governanceName';
 
       userPickUpAddress = Address(

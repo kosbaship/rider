@@ -16,11 +16,13 @@ Widget buildTextField({
   @required TextEditingController controller,
   @required IconData icon,
   TextInputType keyboardType = TextInputType.text,
-  bool obscureText = false
+  bool obscureText = false,
+  Function onChange
 }) => TextFormField(
   keyboardType: keyboardType,
   obscureText: obscureText,
   controller: controller,
+  onChanged: onChange,
   decoration: InputDecoration(
     hintText: "Enter your $title",
     floatingLabelBehavior: FloatingLabelBehavior.always,

@@ -6,11 +6,12 @@ class ApiProvider {
 
    Dio dio = Dio(
     BaseOptions(
-      baseUrl: 'https://maps.googleapis.com/',
+      baseUrl: 'https://maps.googleapis.com/maps/api/',
     ),
   );
 
-   Future<Response> fetchDataByCoordinates({@required lat,@required long,@required mapKey}) async {
-    return await dio.post('maps/api/geocode/json?latlng=$lat,$long&key=$mapKey');
+  Future<Response> fetchData({@required String path}) async {
+    return await dio.post(path);
   }
+
 }

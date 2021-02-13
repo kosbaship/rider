@@ -33,13 +33,13 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
   saveCurrentLocation(){
-    ApiProvider.getAPIProviderInstance.fetchData(
+    ApiProvider.getAPIProviderInstance.fetchDataByCoordinates(
       lat: userCoordinates.placeLatitude,
       long: userCoordinates.placeLongitude,
       mapKey: kMapKeyForIOS,
     ).then((value) {
 
-      String customPlaceName, stNumber, cityName, governanceName, capitalName ;
+      String customPlaceName, stNumber, cityName, governanceName ;
       stNumber = value.data['results'][0]['address_components'][0]['long_name'];
       cityName = value.data['results'][0]['address_components'][1]['long_name'];
       governanceName = value.data['results'][0]['address_components'][2]['long_name'];

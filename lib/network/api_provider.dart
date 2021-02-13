@@ -10,7 +10,7 @@ class ApiProvider {
     ),
   );
 
-   Future<Response> fetchData({@required lat,@required long,@required mapKey}) async {
+   Future<Response> fetchDataByCoordinates({@required lat,@required long,@required mapKey}) async {
     return await dio.post('maps/api/geocode/json?latlng=$lat,$long&key=$mapKey');
   }
 }

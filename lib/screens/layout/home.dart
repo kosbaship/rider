@@ -8,6 +8,7 @@ import 'package:rider/models/address.dart';
 import 'package:rider/network/api_provider.dart';
 import 'package:rider/screens/layout/cubit/home_cubit.dart';
 import 'package:rider/screens/layout/cubit/home_states.dart';
+import 'package:rider/screens/search/search.dart';
 import 'package:rider/shared/colors.dart';
 import 'package:rider/shared/component.dart';
 import 'package:rider/shared/config_map.dart';
@@ -188,38 +189,43 @@ class HomePage extends StatelessWidget  {
                             style: TextStyle(fontSize: 12),
                           ),
                           Text(
-                            'Where To?',
+                            'Where To Go ?',
                             style:
                             TextStyle(fontSize: 20, fontFamily: 'BoltSemiBold'),
                           ),
                           SizedBox(
                             height: 20.0,
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: kForthColor,
-                                borderRadius: BorderRadius.circular(5.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: kMainColor,
-                                      blurRadius: 1.0,
-                                      offset: Offset(0.1, 0.1),
-                                      spreadRadius: 1.0)
-                                ]),
-                            padding: const EdgeInsets.all(12.0),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.search,
-                                  color: kMainColor,
-                                ),
-                                SizedBox(
-                                  width: 10.0,
-                                ),
-                                Text(
-                                  'Search Drop Off',
-                                ),
-                              ],
+                          GestureDetector(
+                            onTap: (){
+                              navigateTo(context, SearchScreen(currentUserAddress: userPickUpAddress.placeName,));
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: kForthColor,
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: kMainColor,
+                                        blurRadius: 1.0,
+                                        offset: Offset(0.1, 0.1),
+                                        spreadRadius: 1.0)
+                                  ]),
+                              padding: const EdgeInsets.all(12.0),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.search,
+                                    color: kMainColor,
+                                  ),
+                                  SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  Text(
+                                    'Search Drop Off',
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           SizedBox(

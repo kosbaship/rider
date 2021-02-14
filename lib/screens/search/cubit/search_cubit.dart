@@ -24,7 +24,9 @@ class SearchCubit extends Cubit<SearchStates> {
       print('================================================\n');
 
       if(response.data[kStatus] == kStatusOK){
-
+        print('\n================================================');
+        print('Loop Triggered');
+        print('================================================\n');
         for (var place in response.data[kPredictions]) {
           predictions.add(PredictionsPlace(
             predictionsPlaceID: place[kPredictionsPlaceID],

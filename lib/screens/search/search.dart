@@ -13,6 +13,9 @@ class SearchScreen extends StatelessWidget {
   SearchScreen({this.currentUserAddress});
 
 
+
+
+
   final pickUpAddressController = TextEditingController();
   final destinationAddressController = TextEditingController();
 
@@ -23,58 +26,61 @@ class SearchScreen extends StatelessWidget {
       pickUpAddressController.text = currentUserAddress;
     }
 
+    String errorForDisplay = 'Initial Error';
+
     return BlocProvider(
       create: (context) => SearchCubit(),
       child: BlocConsumer<SearchCubit, SearchStates>(
-          listener: (context, state) {},
+          listener: (context, state) {
+            if (state is SearchStateError) {
+              errorForDisplay =  state.error;
+            }
+          },
           builder: (context, state) {
-            return ConditionalBuilder(
-              condition: state is! SearchStateLoading,
-              builder: (context) => ConditionalBuilder(
-                condition: state is! SearchStateError,
-                builder: (context) => Scaffold(
-                  appBar: AppBar(
-                    title: Text(
-                      'Set Drop Off',
-                      style:
-                      TextStyle(fontSize: 20, fontFamily: 'BoltSemiBold', color: kForthColor),
-                    ),
-                    centerTitle: true,
-                  ),
-                  body: SingleChildScrollView(
-                    physics: BouncingScrollPhysics(),
-                    child: Padding(
-                      padding:
-                      const EdgeInsetsDirectional.only(start: 20, end: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: 20.0,),
-                          buildTextField(title: 'PickUp Location',
-                              controller: pickUpAddressController,
-                              icon: Icons.location_on),
-                          SizedBox(height: 20.0,),
-                          buildTextField(title: 'Where To Go ?',
-                              controller: destinationAddressController,
-                              icon: Icons.location_on,
+            return Scaffold(
+                appBar: AppBar(
+                title: Text(
+                'Set Drop Off',
+                style:
+                TextStyle(fontSize: 20, fontFamily: 'BoltSemiBold', color: kForthColor),
+            ),
+            centerTitle: true,
+            ),
+            body: SingleChildScrollView(  child: ConditionalBuilder(
+                condition: state is! SearchStateLoading,
+                builder: (context) => ConditionalBuilder(
+                  condition: state is! SearchStateError,
+                  builder: (context) => Padding(
+                    padding:
+                    const EdgeInsetsDirectional.only(start: 20, end: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 20.0,),
+                        buildTextField(title: 'PickUp Location',
+                            controller: pickUpAddressController,
+                            icon: Icons.location_on),
+                        SizedBox(height: 20.0,),
+                        buildTextField(title: 'Where To Go ?',
+                            controller: destinationAddressController,
+                            icon: Icons.location_on,
                             onChange: (userInput){
                               SearchCubit.get(context).findPlace(placeName: userInput);
                             }
-                          ),
-                          SizedBox(height: 20.0,),
-                          Center(child: Text(
-                            'Where To Go?',
-                            style:
-                            TextStyle(fontSize: 20, fontFamily: 'BoltSemiBold', color: kSecondaryColor),
-                          ),),
-                        ],
-                      ),
+                        ),
+                        SizedBox(height: 20.0,),
+                        Center(child: Text(
+                          'Where To Go?',
+                          style:
+                          TextStyle(fontSize: 20, fontFamily: 'BoltSemiBold', color: kSecondaryColor),
+                        ),),
+                      ],
                     ),
                   ),
+                  fallback: (context) => Center(child: Text(errorForDisplay)),
                 ),
-                fallback: (context) => Center(child: Text('Error')),
-              ),
-              fallback: (context) => Center(child: CircularProgressIndicator()),
+                fallback: (context) => Center(child: CircularProgressIndicator()),
+              ),),
             );
           }),
     );

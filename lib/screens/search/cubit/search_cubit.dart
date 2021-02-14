@@ -19,32 +19,29 @@ class SearchCubit extends Cubit<SearchStates> {
     ApiProvider.getAPIProviderInstance.fetchData(
       path: 'place/autocomplete/json?input=$placeName&key=$kMapKeyForIOS&sessiontoken=1234567890&components=country:eg',
     ).then((response) {
+      print('\n================================================');
+      print(response.data[kStatus]);
+      print('================================================\n');
 
       if(response.data[kStatus] == kStatusOK){
-        // print('\n================================================');
-        // print(response.data[kPredictions][0][kPredictionsPlaceID]);
-        // print('================================================\n');
+
         for (var place in response.data[kPredictions]) {
           predictions.add(PredictionsPlace(
             predictionsPlaceID: place[kPredictionsPlaceID],
             predictionsPlaceMainText: place[kStructuredFormatting][kPredictionsMainText],
             predictionsPlaceSecondaryText: place[kStructuredFormatting][kPredictionsSecondaryText],
           ));
+          emit(SearchStateSuccess());
         }
+      } else {
+        print('\n================================================');
+        print('emit(SearchStateError(Error Request Not Complete));');
+        print('================================================\n');
+        emit(SearchStateError('Error Request Not Complete'));
       }
 
-      print('\n================================================');
-      print('================================================');
-      for (var place in predictions) {
-        print(place.predictionsPlaceID);
-        print(place.predictionsPlaceMainText);
-        print(place.predictionsPlaceSecondaryText);
-      }
-      print('================================================\n');
-      print('================================================');
-      emit(SearchStateSuccess());
     }).catchError((e) {
-      emit(SearchStateError(e.toString()));
+      emit(SearchStateError('Error Invalid Url'));
     });
   }
 }

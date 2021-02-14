@@ -26,7 +26,7 @@ class SearchScreen extends StatelessWidget {
       pickUpAddressController.text = currentUserAddress;
     }
 
-    String errorForDisplay = 'Initial Error';
+    String errorForDisplay = 'Invalid Error';
 
     return BlocProvider(
       create: (context) => SearchCubit(),
@@ -46,41 +46,42 @@ class SearchScreen extends StatelessWidget {
             ),
             centerTitle: true,
             ),
-            body: SingleChildScrollView(  child: ConditionalBuilder(
-                condition: state is! SearchStateLoading,
-                builder: (context) => ConditionalBuilder(
-                  condition: state is! SearchStateError,
-                  builder: (context) => Padding(
-                    padding:
-                    const EdgeInsetsDirectional.only(start: 20, end: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 20.0,),
-                        buildTextField(title: 'PickUp Location',
-                            controller: pickUpAddressController,
-                            icon: Icons.location_on),
-                        SizedBox(height: 20.0,),
-                        buildTextField(title: 'Where To Go ?',
-                            controller: destinationAddressController,
-                            icon: Icons.location_on,
-                            onChange: (userInput){
-                              SearchCubit.get(context).findPlace(placeName: userInput);
-                            }
-                        ),
-                        SizedBox(height: 20.0,),
-                        Center(child: Text(
-                          'Where To Go?',
+            body: SingleChildScrollView(
+              child: Padding(
+                  padding:
+                  const EdgeInsetsDirectional.only(start: 20, end: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 20.0,),
+                      buildTextField(title: 'PickUp Location',
+                          controller: pickUpAddressController,
+                          icon: Icons.location_on),
+                      SizedBox(height: 20.0,),
+                      buildTextField(title: 'Where To Go ?',
+                          controller: destinationAddressController,
+                          icon: Icons.location_on,
+                          onChange: (userInput){
+                            SearchCubit.get(context).findPlace(placeName: userInput);
+                          }
+                      ),
+                      SizedBox(height: 20.0,),
+                      ConditionalBuilder(
+                        condition: state is! SearchStateError,
+                        builder: (context) => Text(
+                          '',
                           style:
                           TextStyle(fontSize: 20, fontFamily: 'BoltSemiBold', color: kSecondaryColor),
+                        ),
+                        fallback: (context) =>Center(child: Text(
+                          errorForDisplay, style: TextStyle(fontSize: 12, fontFamily: 'Muli', color: kSecondaryColor),
                         ),),
-                      ],
-                    ),
+                      ),
+
+                    ],
                   ),
-                  fallback: (context) => Center(child: Text(errorForDisplay)),
                 ),
-                fallback: (context) => Center(child: CircularProgressIndicator()),
-              ),),
+              ),
             );
           }),
     );

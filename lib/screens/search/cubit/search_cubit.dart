@@ -19,9 +19,6 @@ class SearchCubit extends Cubit<SearchStates> {
     ApiProvider.getAPIProviderInstance.fetchData(
       path: 'place/autocomplete/json?input=$placeName&key=$kMapKeyForIOS&sessiontoken=1234567890&components=country:eg',
     ).then((response) {
-      print('\n================================================');
-      print(response.data[kStatus]);
-      print('================================================\n');
 
       if(response.data[kStatus] == kStatusOK){
         print('\n================================================');
@@ -35,15 +32,17 @@ class SearchCubit extends Cubit<SearchStates> {
           ));
           emit(SearchStateSuccess());
         }
+
       } else {
         print('\n================================================');
-        print('emit(SearchStateError(Error Request Not Complete));');
+        print('Enter Proper Destination');
         print('================================================\n');
-        emit(SearchStateError('Error Request Not Complete'));
+        emit(SearchStateError('Enter your Destination'));
+
       }
 
     }).catchError((e) {
-      emit(SearchStateError('Error Invalid Url'));
+      emit(SearchStateError('Check Internet Connection'));
     });
   }
 }

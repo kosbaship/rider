@@ -13,17 +13,12 @@ class SearchCubit extends Cubit<SearchStates> {
   static SearchCubit get(context) => BlocProvider.of(context);
 
   findPlace({String placeName}) {
-    print('\n================================================');
-    print(placeName);
-    print('================================================\n');
+    predictions.clear();
     ApiProvider.getAPIProviderInstance.fetchData(
       path: 'place/autocomplete/json?input=$placeName&key=$kMapKeyForIOS&sessiontoken=1234567890&components=country:eg',
     ).then((response) {
 
       if(response.data[kStatus] == kStatusOK){
-        print('\n================================================');
-        print('Loop Triggered');
-        print('================================================\n');
         for (var place in response.data[kPredictions]) {
           predictions.add(PredictionsPlace(
             predictionsPlaceID: place[kPredictionsPlaceID],
@@ -34,9 +29,6 @@ class SearchCubit extends Cubit<SearchStates> {
         }
 
       } else {
-        print('\n================================================');
-        print('Enter Proper Destination');
-        print('================================================\n');
         emit(SearchStateError('Enter your Destination'));
 
       }
